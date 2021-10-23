@@ -7,7 +7,7 @@
 typedef struct linklist
 	 {
 	  int no;
-	  struct linklist *link
+	  struct linklist *link;
 	 } node;
 char ch;
 /* following is the definition of the create() function  that creates nodes for linked list
@@ -27,7 +27,7 @@ node *create(node *start)
 		while(ch=='y')
 		  {
 		   temp=(node *)malloc(sizeof(node));
-		   printf("\n\t Enter the no :==> " )
+		   printf("\n\t Enter the no :==> " );
 		   scanf("%d",&temp->no);
 		   temp->link = NULL;
 		   if(start == NULL)
@@ -37,7 +37,7 @@ node *create(node *start)
 			p->link=temp;
 			p=temp;
 			}
-		   
+		   fflush(stdin);
 		   printf("\t Do you want to continue (y/n) ? : ");
 	 	   ch=getchar();
 		  } // end of loop
@@ -57,7 +57,7 @@ printf("\n\n\t Press any key to goto MAIN BLOCK.....");
 	 return;
 	}
 
-
+/* definition of the function delf() that will be invoked to delete the first node */
 node *delf(node *start)
    {
 	node *tmp=start ;
@@ -67,6 +67,7 @@ node *delf(node *start)
 	free(tmp) ;  // garbage collection - deallocation of memory - reclaiming space
 	return(start);
     }
+ /* following is the definition of the function del_negative_node()
 that finds a node with negative value and deletes it */
   
 node *del_negative_node(node *start)
@@ -76,7 +77,12 @@ node *del_negative_node(node *start)
 	for(temp=start;(!(temp->no < 0))&& (temp != NULL);temp=temp->link)
 	    temp1=temp;
 
-	
+	if(temp==NULL)  // no node with -ve value found in the linked list
+	   {
+		 printf("\n\n\t No node with negative value found in the Linklist");
+		 getch();
+		 return(start);
+	   }
 
 	if(temp==start)  // first node is -ve
 	   start=delf(start);
